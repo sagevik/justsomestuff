@@ -1,0 +1,69 @@
+# Zathura configuration file
+# See man `man zathurarc'
+set database sqlite
+
+
+# One page per row by default
+# set pages-per-row 1
+
+#stop at page boundries
+# set scroll-page-aware "true"
+# set scroll-full-overlap 0.01
+# set scroll-step 0.01
+#
+# maps
+map r reload
+# map p print
+map i recolor
+map R rotate
+#
+
+#zoom settings
+# set zoom-min 10
+# set guioptions ""
+
+# zathurarc-dark
+set font "Cantarell 12"
+set default-bg "#000000" #00
+# set default-bg "#1d1c19" #00
+set default-fg "#cdcdcd" #01
+# set default-fg "#c5c9c5" #01
+
+# set recolor "true"
+set recolor-lightcolor "#252530" #00
+# set recolor-lightcolor "#1D1C19" #00
+set recolor-darkcolor "#cdcdcd" #06
+# set recolor-darkcolor "#c5c9c5" #06
+set recolor-reverse-video "true"
+set recolor-keephue "true"
+
+set statusbar-fg "#b3b3b3" #04
+# set statusbar-fg "#c5c9c5" #04
+set statusbar-bg "#000000" #01
+# set statusbar-bg "#1d1c19" #01
+
+set inputbar-bg "#151515" #00 currently not used
+set inputbar-fg "#FFFFFF" #02
+
+set notification-error-bg "#AC4142" #08
+set notification-error-fg "#151515" #00
+
+set notification-warning-bg "#b98d7b" #08
+set notification-warning-fg "#1d1c19" #00
+
+
+set highlight-color "rgba(139, 164, 176, 0.5)"
+# set highlight-active-color "rgba(139, 164, 176, 0.5)"
+
+set completion-highlight-fg "#000000" #02
+set completion-highlight-bg "#00BCD4B3" #0C
+
+set completion-bg "#30303003" #02
+set completion-fg "#FFC107C4" #0C
+
+set notification-bg "#c4746e" #0B
+set notification-fg "#1d1c19" #00
+
+set selection-clipboard clipboard
+set render-loading "false"
+set scroll-step 50

@@ -1,0 +1,17 @@
+! dwm specific settings for kanagawa-yellow
+dwm.normfgcolor: #c5c9c5
+dwm.selfgcolor:  #c5c9c5
+
+dwm.normbgcolor: #000000
+dwm.normbgcolor2: #000000
+dwm.normbordercolor: #1d1c19
+
+dwm.selbordercolor: #c4b28a
+dwm.selbgcolor:  #c4b28a
+
+dmenu.foreground: #c5c9c5
+dmenu.background: #000000
+
+dmenu.selforeground: #000000
+dmenu.selbackground: #c4b28a
+

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# Syntax highlighting
+if [ ! -d "/home/rs/.config/zsh/plugins/zsh-syntax-highlighting" ]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /home/rs/.config/zsh/plugins/zsh-syntax-highlighting/
+else
+    echo "zsh-syntax-highlighting already installed"
+fi
+
+# Auto suggestions
+if [ ! -d "/home/rs/.config/zsh/plugins/zsh-autosuggestions" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git /home/rs/.config/zsh/plugins/zsh-autosuggestions
+else
+    echo "zsh-autosuggestions already installed"
+fi
+
+# Auto activate/deactivate python env.
+if [ ! -d "/home/rs/.config/zsh/plugins/zsh-autoswitch-virtualenv" ]; then
+    git clone https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git /home/rs/.config/zsh/plugins/zsh-autoswitch-virtualenv
+else
+    echo "zsh-autoswitch-virtualenv already installed"
+fi
+
+ehco "Done installing zsh plugins"
