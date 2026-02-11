@@ -1,0 +1,173 @@
+#!/usr/bin/env bash
+
+CONFIG="$HOME/.ssh/config"
+USER=$(whoami)
+ACTIONS="Edit\nAdd\nRemove\nUpdate\nConnect\nList"
+
+# Exit if not run from a terminal
+if [ -z "$TERM" ] || [ "$TERM" = "dumb" ]; then
+    echo "This script must be run from a terminal."
+    exit 1
+fi
+
+
+usage() {
+    cat <<EOF
+Usage: sshmanager [options]
+
+Options:
+  -l            List hosts
+  -e            Edit SSH config in \$EDITOR (nvim)
+  -r            Remove a host
+  -a            Add a host
+  -u            Update a host's IP
+  -c            Connect to a host
+  -h            Show this help
+
+No options: show action menu via fzf
+EOF
+}
+
+# Function to format host list as a table
+format_hosts() {
+    awk -v show_header="$1" '
+    BEGIN { maxlen = 0 }
+    /^Host / && $2 != "*" {
+        hosts[$2] = 1
+        if (length($2) > maxlen) maxlen = length($2)
+    }
+    /^HostName / {
+        ip = $2
+    }
+    {
+        if ($1 == "Host") current_host = $2
+        if ($1 == "HostName") host_ips[current_host] = $2
+    }
+    END {
+        if (show_header == "true") {
+            printf "%-*s  %s\n", maxlen, "Host", "IP Address"
+            printf "%-*s  %s\n", maxlen, "----", "----------"
+        }
+        for (h in hosts) {
+            printf "%-*s  %s\n", maxlen, h, host_ips[h]
+        }
+    }
+    ' "$CONFIG"
+}
+
+
+# ---- Flag parsing ----
+ACTION=""
+HOST_ARG=""
+
+while getopts ":leraucH:h" opt; do
+    case "$opt" in
+        l) ACTION="list" ;;
+        e) ACTION="edit" ;;
+        r) ACTION="remove" ;;
+        a) ACTION="add" ;;
+        u) ACTION="update" ;;
+        c) ACTION="connect" ;;
+        H) HOST_ARG="$OPTARG" ;;
+        h) usage; exit 0 ;;
+        \?) echo "Unknown option: -$OPTARG" >&2; usage; exit 1 ;;
+        :)  echo "Option -$OPTARG requires an argument." >&2; usage; exit 1 ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+# If no ACTION is set by flags, fall back to fzf menu
+if [ -z "$ACTION" ]; then
+    ACTION=$(echo -e "$ACTIONS" | sort | fzf --prompt="Choose action: ")
+    ACTION=$(echo "$ACTION" | tr '[:upper:]' '[:lower:]')
+fi
+
+if [ "$ACTION" = "add" ]; then
+    read -rp "Enter IP address: " IP
+    [ -z "$IP" ] && exit 0
+
+    read -rp "Enter host name: " NAME
+    [ -z "$NAME" ] && exit 0
+
+    {
+        echo ""
+        echo "Host $NAME"
+        echo "    HostName $IP"
+        echo "    User $USER"
+        echo "    SetEnv TERM=xterm-256color"
+    } >> "$CONFIG"
+
+elif [ "$ACTION" = "remove" ]; then
+    HOSTS=$(format_hosts false)
+    [ -z "$HOSTS" ] && echo "No hosts found." && exit 0
+
+    SELECTED=$(echo "$HOSTS" | fzf --prompt="Select host to remove:" | awk '{print $1}')
+    [ -z "$SELECTED" ] && exit 0
+
+    TEMP=$(mktemp)
+    awk -v host="$SELECTED" '
+    /^Host / {
+        if ($2 == host) {
+            in_block = 1
+        } else {
+            in_block = 0
+            print
+        }
+        next
+    }
+    in_block == 0 { print }
+    ' "$CONFIG" > "$TEMP"
+    mv "$TEMP" "$CONFIG"
+
+    sed -i '/^$/N;/\n$/D' "$CONFIG"
+
+elif [ "$ACTION" = "update" ]; then
+    HOSTS=$(format_hosts false)
+    [ -z "$HOSTS" ] && echo "No hosts found." && exit 0
+
+    SELECTED=$(echo "$HOSTS" | fzf --prompt="Select host to update:" | awk '{print $1}')
+    [ -z "$SELECTED" ] && exit 0
+
+    read -rp "Enter new IP address for $SELECTED: " NEW_IP
+    [ -z "$NEW_IP" ] && exit 0
+
+    TEMP=$(mktemp)
+    awk -v host="$SELECTED" -v new_ip="$NEW_IP" '
+    BEGIN { in_block = 0 }
+    /^Host / {
+        in_block = ($2 == host) ? 1 : 0
+        print
+        next
+    }
+    in_block == 1 && /^    HostName / {
+        print "    HostName " new_ip
+        next
+    }
+    { print }
+    ' "$CONFIG" > "$TEMP"
+    mv "$TEMP" "$CONFIG"
+
+elif [ "$ACTION" = "connect" ]; then
+    HOSTS=$(format_hosts false)
+    [ -z "$HOSTS" ] && echo "No hosts found." && exit 0
+
+    SELECTED=$(echo "$HOSTS" | fzf --prompt="Select host to connect:" | awk '{print $1}')
+    [ -z "$SELECTED" ] && exit 0
+
+    notify-send "Connecting to $SELECTED"
+    ssh $USER@$SELECTED
+
+elif [ "$ACTION" = "list" ]; then
+    echo ""
+    # list config alphabetically excluding header lines
+    format_hosts true | { read -r header1; read -r header2; echo "$header1"; echo "$header2"; sort; }
+    echo ""
+    exit 0
+
+elif [ "$ACTION" = "edit" ]; then
+    nvim "$CONFIG"
+    exit 0
+else
+    exit 0
+fi
+

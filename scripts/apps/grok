@@ -1,0 +1,2 @@
+#!/bin/sh
+exec brave --app=https://grok.com/ --vmclass=Grok --class=Grok --name=Grok %U

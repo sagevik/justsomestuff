@@ -1,0 +1,2 @@
+#!/bin/sh
+exec brave --app=https://chatgpt.com/ --vmclass=ChatGPT --class=ChatGPT --name=ChatGPT %U

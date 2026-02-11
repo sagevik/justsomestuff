@@ -1,0 +1,8 @@
+#!/bin/sh
+
+func() {
+  d=$(ls -l)
+  echo "$d" | head -2
+}
+
+func

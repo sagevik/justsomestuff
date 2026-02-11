@@ -1,0 +1,64 @@
+#!/bin/sh
+
+# Script for changing colorscheme in dwm and dmenu
+
+# Update Dunst highlight color from suckless colorscheme
+update_dunst_highlight() {
+    # Paths
+    COLORS_FILE="$HOME/.config/sucklesscolors/current"
+    DUNSTRC="$HOME/.config/dunst/dunstrc"
+    DUNSTRC_BACKUP="$HOME/.config/dunst/dunstrc.bak"
+
+    # Extract dwm.selbgcolor from colors file
+    HIGHLIGHT=$(grep "dwm.selbgcolor:" "$COLORS_FILE" | awk '{print $2}')
+    BACKGROUND=$(grep "dwm.normbgcolor:" "$COLORS_FILE" | awk '{print $2}')
+
+    if [ -z "$HIGHLIGHT" ]; then
+        notify-send --urgency=critical "Error" "Could not find dwm.selbgcolor in $COLORS_FILE"
+        return 1
+    fi
+
+    # Replace highlight color in dunstrc
+    sed -i "s/highlight = .*/highlight = \"$HIGHLIGHT\"/" "$DUNSTRC"
+    sed -i "s/frame_color = .*/frame_color = \"$HIGHLIGHT\"/" "$DUNSTRC"
+    sed -i "s/background = .*/background = \"$BACKGROUND\"/" "$DUNSTRC"
+
+    # Reload Dunst
+    dunstctl reload
+}
+
+if [ ! -d ~/.config/sucklesscolors ]; then
+    notify-send "No colors directory found"
+    exit 0
+fi
+
+colors=$(ls ~/.config/sucklesscolors | grep -v "current")
+num_colors=$(echo "$colors" | wc -l)
+
+colorscheme=$(printf "%s\n" "$colors" | dmenu -i -l "$num_colors" -p "Select colorscheme: ")
+if [ -z "${colorscheme// /}" ]; then
+    exit 0
+fi
+
+if [ ! -f ~/.config/sucklesscolors/"$colorscheme" ]; then
+    notify-send "Invalid colorscheme selected"
+    exit 0
+fi
+
+ln -sf ~/.config/sucklesscolors/"$colorscheme" ~/.config/sucklesscolors/current || {
+    notify-send "Failed to link colorscheme"
+    exit 1
+}
+
+xrdb -merge ~/.config/sucklesscolors/current || {
+    notify-send "Failed to merge X resources"
+    exit 1
+}
+
+update_dunst_highlight
+
+# Reload dwm
+killall -SIGUSR1 dwm || {
+    notify-send "Failed to reload dwm"
+    exit 1
+}

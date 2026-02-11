@@ -1,0 +1,2 @@
+#!/bin/sh
+exec brave --app=https://web.whatsapp.com/ --vmclass=WhatsApp --class=WhatsApp --name=WhatsApp %U

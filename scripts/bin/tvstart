@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if [ $XDG_SESSION_TYPE = "wayland" ]; then
+  export QT_QPA_PLATFORM=xcb
+fi
+
+status=$(systemctl is-active teamviewerd.service)
+
+if [ "$status" = "inactive" ]; then
+    notify-send "TeamViewer" "Starting TeamViewer service"
+    teamviewer daemon start
+fi
+
+sleep 2
+
+# Check if TeamViewer processes are running using pgrep
+if pgrep -x TeamViewer >/dev/null; then
+    notify-send "TeamViewer" "TeamViewer is running."
+else
+    notify-send "TeamViewer" "Starting TeamViewer"
+    teamviewer &
+fi
+
+exit 0
