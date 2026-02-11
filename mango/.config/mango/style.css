@@ -1,0 +1,269 @@
+@define-color gray-light #b3b3b3;
+@define-color blue-dark #005577;
+@define-color red-critical #f53c3c;
+@define-color red-urgent #eb4d4b;
+
+@define-color bg    #000000;
+@define-color wact  #f3b37c;
+@define-color fg    #b3b3b3;
+@define-color hid   #44424d;
+@define-color fgd   #64727d;
+@define-color red   #f7768e;
+@define-color orange #f3b37c;
+
+* {
+    font-family: Hack, Jetbrains Mono Nerd, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    min-height: 0; /* Prevent modules from expanding */
+}
+
+#waybar {
+    background-color: @bg;
+    color: @fg;
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
+}
+
+window#waybar {
+    background-color: @bg;
+    color: @fg;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+button {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+}
+
+button:hover {
+    background: none;
+}
+
+#workspaces button {
+    padding: 0 2px;
+    color: @fg;
+    background: transparent;
+    min-height: 0;
+}
+#workspaces button.active {
+    background-color: @bg;
+    color: @wact;
+}
+
+#workspaces button.hidden{
+    color: @hid;
+}
+
+#workspaces button:hover {
+    background-color: @bg;
+    color: @fg;
+    transition: color 0.2s ease;  /* Optional: Smooth transition effect */
+}
+
+
+#clock,
+#custom-sep,
+#battery,
+#cpu,
+#memory,
+#disk,
+#network,
+#pulseaudio,
+#wireplumber,
+#tray,
+#custom-pacman,
+#window,
+#workspaces {
+    padding: 0 0px; /* Only horizontal padding */
+    margin: 0 0px 0px 0px; /* No vertical margins */
+    min-height: 0; /* Prevent expansion */
+}
+
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0px;
+}
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0px;
+}
+
+#clock {
+    color: @fg;
+    margin: 0px 4px 0px 0px;
+}
+
+#battery {
+    color: @fg;
+}
+
+#disk {
+    color: @fg;
+}
+
+#memory {
+    color: @fg;
+}
+
+#cpu {
+    color: @fg;
+}
+
+#network {
+    color: @fg;
+}
+
+#custom-pacman{
+    background-color: @bg;
+    color: @fgd;
+    padding: 0px 4px 0px 4px;
+    margin: 0px 0px 0px 0px;
+}
+
+#custom-pacman:hover {
+    background-color: @wact;
+    color: @bg;
+}
+
+@keyframes blink {
+    to {
+        background-color: @bg;
+        color: @red;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: @bg;
+    color: @orange;
+    animation-name: blink;
+    animation-duration: 0.25s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#battery.charging {
+    background-color: @bg;
+    color: @fg;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#cpu,
+#memory,
+#disk,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#pulseaudio {
+    padding: 0px 4px 0px 4px;
+}
+
+#pulseaudio.muted {
+    background-color: @bg;
+    color: @fgd;
+}
+
+#wireplumber.muted {
+    background-color: @red-critical;
+    color: @fg;
+}
+
+#network.disconnected {
+    background-color: @red-critical;
+    color: @fg;
+}
+
+#network:hover {
+    background-color: @wact;
+    color: @fg;
+}
+
+#tray {
+    background-color: @bg;
+    color: @fg;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @red-urgent;
+}
+
+#keyboard-state > label {
+    padding: 0 2px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#privacy {
+    padding: 0;
+}
+
+#privacy-item {
+    padding: 0 2px;
+    color: @gray-light;
+}
+
+#privacy-item.screenshare {
+    background-color: #cf5700;
+}
+
+#privacy-item.audio-in {
+    background-color: #1ca000;
+}
+
+#privacy-item.audio-out {
+    background-color: #0069d4;
+}
+
+#custom-sep {
+    padding: 0 0px;
+    margin: 0px 0px;
+    color: @fg;
+    background-color: @bg;
+}
+
+#custom-powerprofile {
+    padding: 0px 5px 0px 1px;
+    margin: 0px 5px 0px 0px;
+    color: @fg;
+}
+
+#custom-powerprofile:hover {
+    /* font-size: 16px; */
+    /* padding: 0px 4px 0px 1px; */
+    color: @bg;
+    background-color: @wact;
+}
+
+#window.layout {
+    padding: 0px 2px 0px 2px;
+    margin: 0px 0px 0px -35px;
+    color: @fg;
+    /* background-color: @bg; */
+}
+
+#window.title {
+    padding: 0px 2px 0px 2px;
+    margin: 0px 0px 0px -8px;
+    color: @fg;
+    /* background-color: @bg; */
+}
+
+#mpris {
+    margin: 0px 20px 0px 0px;
+    color: @fg;
+}
