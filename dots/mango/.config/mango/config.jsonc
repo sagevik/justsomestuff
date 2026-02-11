@@ -44,7 +44,8 @@
   "cpu": {
       "format": " {usage}%",
       "interval": 10,
-      "tooltip": false
+      "tooltip": false,
+      "on-click": "foot --app-id='systemutilization' --title='htop' -e 'htop'"
     },
   "memory": {
         "format": " {used}G"
@@ -128,7 +129,7 @@
       "interval": 3600,
       "exec": "count=$(checkupdates 2>/dev/null | wc -l || echo 0); [ $count -gt 0 ] && echo ' ' || echo ''",
       "exec-if": "which checkupdates",
-      "on-click": "foot --title='PackageUpdater' -e 'archupdate'",
+      "on-click": "foot --app-id='PackageUpdater' --title='PackageUpdater' -e 'archupdate'",
       "tooltip": true,
       "tooltip-format": "{} updates available",
       "signal": 8

@@ -45,14 +45,16 @@ button:hover {
 }
 
 #workspaces button {
-    padding: 0 2px;
+    padding: 0 0px;
     color: @fg;
     background: transparent;
     min-height: 0;
+    margin: 2px;
 }
 #workspaces button.active {
     background-color: @bg;
     color: @wact;
+    border-radius: 2px;
 }
 
 #workspaces button.hidden{
@@ -60,9 +62,11 @@ button:hover {
 }
 
 #workspaces button:hover {
-    background-color: @bg;
-    color: @fg;
-    transition: color 0.2s ease;  /* Optional: Smooth transition effect */
+    background-color: @orange;
+    color: @bg;
+    border-radius: 2px;
+    transition: color 0.0s ease;
+    /* Optional: Smooth transition effect */
 }
 
 
@@ -94,12 +98,20 @@ button:hover {
 
 #clock {
     color: @fg;
-    margin: 0px 4px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+#clock:hover {
+    color: @wact;
 }
 
 #battery {
     color: @fg;
 }
+
+/* #battery:hover { */
+/*     color: @wact; */
+/* } */
 
 #disk {
     color: @fg;
@@ -113,6 +125,10 @@ button:hover {
     color: @fg;
 }
 
+#cpu:hover {
+    color: @wact;
+}
+
 #network {
     color: @fg;
 }
@@ -121,12 +137,14 @@ button:hover {
     background-color: @bg;
     color: @fgd;
     padding: 0px 4px 0px 4px;
-    margin: 0px 0px 0px 0px;
+    /* margin: 0px 0px 0px 0px; */
 }
 
 #custom-pacman:hover {
-    background-color: @wact;
-    color: @bg;
+    /* background-color: @wact; */
+    color: @wact;
+    /* border-radius: 2px; */
+    /* margin: 2px; */
 }
 
 @keyframes blink {
@@ -164,11 +182,17 @@ label:focus {
 #wireplumber,
 #pulseaudio {
     padding: 0px 4px 0px 4px;
+    /* margin: 0px 4px 0px 4px; */
 }
 
 #pulseaudio.muted {
     background-color: @bg;
     color: @fgd;
+}
+
+#pulseaudio:hover {
+    background-color: @bg;
+    color: @wact;
 }
 
 #wireplumber.muted {
@@ -245,8 +269,7 @@ label:focus {
 #custom-powerprofile:hover {
     /* font-size: 16px; */
     /* padding: 0px 4px 0px 1px; */
-    color: @bg;
-    background-color: @wact;
+    color: @wact;
 }
 
 #window.layout {
@@ -265,5 +288,13 @@ label:focus {
 
 #mpris {
     margin: 0px 20px 0px 0px;
+    background-color: @bg;
     color: @fg;
+}
+
+#mpris:hover {
+    background-color: @bg;
+    color: @wact;
+    transition: color 0.0s ease;
+    /* Optional: Smooth transition effect */
 }
