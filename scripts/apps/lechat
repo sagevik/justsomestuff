@@ -1,2 +1,0 @@
-#!/bin/sh
-exec brave --app=https://chat.mistral.ai/chat --vmclass=LeChat --class=LeChat --name=LeChat %U

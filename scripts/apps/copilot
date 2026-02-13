@@ -1,3 +1,0 @@
-#!/bin/sh
-exec google-chrome-stable --app=https://m365.cloud.microsoft/chat/ --vmclass=Copilot --class=Copilot --name=Copilot %U
-

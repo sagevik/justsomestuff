@@ -1,3 +1,0 @@
-#!/usr/bin/bash
-
-/home/rs/applications/waveclient/opt/hanwha/client/5.1.4.38659/bin/./applauncher-bin > /dev/null 2>&1

@@ -1,7 +1,0 @@
-@import "share"
-@theme "dmenu"
-
-configuration {
-    modi: "combi";
-    combi-modi: "window,drun,run";
-}
