@@ -1,0 +1,17 @@
+! dwm specific settings for gray
+dwm.normfgcolor: #c5c9c5
+dwm.selfgcolor:  #c5c9c5
+
+dwm.normbgcolor: #000000
+dwm.normbgcolor2: #000000
+dwm.normbordercolor: #1d1c19
+
+dwm.selbordercolor: #888888
+dwm.selbgcolor:  #888888
+
+dmenu.foreground: #c5c9c5
+dmenu.background: #000000
+
+dmenu.selforeground: #000000
+dmenu.selbackground: #888888
+

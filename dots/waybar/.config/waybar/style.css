@@ -1,0 +1,248 @@
+@define-color bg-dark #222222;
+@define-color fg-white #ffffff;
+@define-color gray-light #b3b3b3;
+@define-color gray-dark #64727D;
+@define-color blue-dark #005577;
+@define-color dragon-blue #8ba4b0;
+@define-color dragon-black2 #1D1C19;
+@define-color red-critical #f53c3c;
+@define-color red-urgent #eb4d4b;
+@define-color green-charging #26A65B;
+@define-color green-light #2ecc71;
+@define-color yellow-pulse #f1c40f;
+@define-color purple-memory #9b59b6;
+@define-color blue-network #2980b9;
+@define-color orange-disk #964B00;
+@define-color teal-backlight #90b1b1;
+@define-color orange-temp #f0932b;
+@define-color green-media #66cc99;
+
+@define-color bg    #000000;
+/* @define-color bg    #222222; */
+@define-color fg    #b3b3b3;
+@define-color fgwas #b3b3b3;
+@define-color fgd   #64727d;
+@define-color blk   #32344a;
+@define-color red   #f7768e;
+@define-color grn   #9ece6a;
+@define-color ylw   #e0af68;
+@define-color blu   #7aa2f7;
+@define-color mag   #ad8ee6;
+@define-color cyn   #0db9d7;
+@define-color brblk #444b6a;
+@define-color wht   #ffffff;
+
+* {
+    font-family: Hack, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    min-height: 0; /* Prevent modules from expanding */
+}
+
+#waybar {
+    background-color: @bg;
+    color: @fg;
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
+}
+
+window#waybar {
+    background-color: @bg;
+    color: @fg;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+button {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+}
+
+button:hover {
+    background: none;
+}
+
+#pulseaudio:hover {
+    background-color: @fg;
+    color: @bg;
+}
+
+#workspaces button {
+    padding: 0 2px;
+    color: @fgd;
+    background: transparent;
+    min-height: 0;
+}
+#workspaces button.active {
+    color: @fgaws;
+    /* color: @fg; */
+}
+#workspaces button.empty {
+    color: @fgd;
+}
+#workspaces button.empty.active {
+    color: @fgaws;
+}
+
+#clock,
+#custom-sep,
+#battery,
+#cpu,
+#memory,
+#disk,
+#network,
+#pulseaudio,
+#wireplumber,
+#tray,
+#custom-pacman,
+#window,
+#workspaces {
+    padding: 0 2px; /* Only horizontal padding */
+    margin: 0; /* No vertical margins */
+    min-height: 0; /* Prevent expansion */
+}
+
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#clock {
+    color: @fg;
+}
+
+#battery {
+    color: @fg;
+}
+
+#disk {
+    color: @ylw;
+}
+
+#memory {
+    color: @mag;
+}
+
+#cpu {
+    color: @grn;
+}
+
+#network {
+    color: @blu;
+}
+
+#custom-pacman{
+    background-color: @bg;
+    color: @fgd;
+}
+
+#custom-pacman:hover {
+    background-color: @fg;
+    color: @bg;
+}
+
+@keyframes blink {
+    to {
+        background-color: @fg-white;
+        color: #000000;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: @red-critical;
+    color: @fg-white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#cpu,
+#memory,
+#disk,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#tray {
+    background-color: @bg;
+    color: @fg;
+}
+
+#pulseaudio.muted {
+    background-color: @bg;
+    color: @fgd;
+}
+
+#wireplumber.muted {
+    background-color: @red-critical;
+    color: @fg;
+}
+
+#network.disconnected {
+    background-color: @red-critical;
+    color: @fg;
+}
+
+#network:hover {
+    background-color: @blue-dark;
+    color: @fg;
+}
+
+#tray {
+    background-color: @bg;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @red-urgent;
+}
+
+#keyboard-state > label {
+    padding: 0 2px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#privacy {
+    padding: 0;
+}
+
+#privacy-item {
+    padding: 0 2px;
+    color: @gray-light;
+}
+
+#privacy-item.screenshare {
+    background-color: #cf5700;
+}
+
+#privacy-item.audio-in {
+    background-color: #1ca000;
+}
+
+#privacy-item.audio-out {
+    background-color: #0069d4;
+}
+
+#custom-spacer {
+    padding: 0 4px;
+    color: @fg;
+}

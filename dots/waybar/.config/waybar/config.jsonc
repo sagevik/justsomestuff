@@ -1,0 +1,132 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top",
+    "position": "top",
+    "height": 20,
+    "spacing": 4,
+    "modules-left": [
+        "niri/workspaces",
+        "custom/sep",
+        "niri/window",
+    ],
+    "modules-center": [
+    ],
+    "modules-right": [
+        "custom/pacman",
+        "pulseaudio",
+        "custom/sep",
+        "cpu",
+        // "custom/sep",
+        // "memory",
+        // "custom/sep",
+        // "disk",
+        // "network",
+        "custom/sep",
+        "battery",
+        "custom/sep",
+        "clock",
+        "tray",
+        "custom/powerprofile",
+    ],
+    "tray": {
+        "icon-size": 14,
+        "spacing": 5,
+        // "icons": {
+        //   "blueman": "bluetooth",
+        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        // }
+    },
+    // "hyprland/workspaces": {
+    //     "disable-scroll": true,
+    //     "all-outputs": false,
+    //     "warp-on-scroll": false,
+    //     "format": "{name}",
+    //     "persistent-workspaces": {
+    //         "*": 9,
+    //     }
+    // },
+    "clock": {
+        "interval": 60,
+        "timezone": "Europe/Oslo",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "{:%Y-%m-%d %H:%M}",
+        "format-alt": "{:%Y-%m-%d %H:%M}",
+        // "format-alt": "{:%Y-%m-%d}"
+    },
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 10,
+        "tooltip": false
+    },
+    "memory": {
+        "format": " {used}G"
+    },
+    "disk": {
+        "interval": 60,
+        "path": "/",
+        "format": " {free}",
+    },
+    "battery": {
+        "states": {
+            "good": 80,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-alt": "Bat: {capacity}%",
+        "format-time": "{H}:{M}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "custom/sep": {
+        "format": "|",
+        "interval": 0,
+        "tooltip": false
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "  {essid} ({signalStrength}%)",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/pacman": {
+        "format": "{}",
+        "interval": 3600,
+        "exec": "count=$(checkupdates 2>/dev/null | wc -l || echo 0); [ $count -gt 0 ] && echo '  ' || echo ''",
+        "exec-if": "which checkupdates",
+        "on-click": "ghostty --title='PackageUpdater' -e 'archupdate'",
+        "tooltip": true,
+        "tooltip-format": "{} updates available",
+        "signal": 8
+    },
+    "custom/powerprofile": {
+        "format": "{text}",
+        "return-type": "json",
+        "exec": "$HOME/.config/waybar/scripts/powerprofile.sh",
+        // "exec": "profile=$($HOME/.config/waybar/scripts/powerprofile.sh) && echo $profile",
+        "tooltip": true,
+        "signal": 8  // Enables signal-based updates (use pkill -RTMIN+8 waybar to trigger)
+        // Optional: Add "interval": 30 for polling every 30s if you remove D-Bus monitoring
+    }
+}

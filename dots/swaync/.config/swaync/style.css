@@ -1,0 +1,215 @@
+/* ============================================= */
+/*           SWAYNC COMPLETE BLACK SQUARE THEME  */
+/*  Background: #000000 | Text: #b3b3b3 | Square  */
+/* ============================================= */
+
+/* Force highest priority */
+* {
+    all: unset;
+    font-family: "Hack", "JetBrains Mono", "Fira Code", "monospace";
+    font-size: 14px;
+    transition: 200ms;
+}
+
+/* ========= MAIN WINDOWS ========= */
+window#swaync-notification-window,
+window#swaync-control-center {
+    background-color: #000000;
+    border-radius: 0px;
+    border: 1px solid #333333;
+}
+
+/* ========= CONTROL CENTER CONTAINER ========= */
+.control-center {
+    background-color: #000000;
+    border-radius: 0px;
+    margin: 0px;
+    padding: 8px;
+}
+
+.control-center .floating-notifications {
+    background: transparent;
+}
+
+/* ========= NOTIFICATIONS ========= */
+.notification {
+    background-color: #000000;
+    border: 1px solid #f3b37c;
+    border-radius: 0px;
+    padding: 10px;
+    margin: 6px 8px;
+    min-height: 60px;
+}
+
+.notification.critical {
+    border-color: #ff5555;
+    background-color: #1a0000;
+}
+
+/* Notification content */
+.notification-content {
+    color: #b3b3b3;
+}
+
+.notification-content .summary {
+    color: #b3b3b3;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 4px;
+    margin-left: 12px;
+}
+
+.notification-content .time {
+    color: #777777;
+    font-size: 11px;
+}
+
+.notification-content .body {
+    color: #b3b3b3;
+    font-size: 12px;
+    margin-left: 12px;
+}
+
+/* App icon */
+.notification .notification-icon {
+    margin-right: 10px;
+}
+
+.notification .notification-icon image {
+    -gtk-icon-transform: scale(1);
+}
+
+/* Close button */
+.notification .close-button {
+    background: #222222;
+    color: #b3b3b3;
+    border-radius: 0px;
+    padding: 4px 8px;
+    margin: 4px;
+}
+
+.notification .close-button:hover {
+    background: #444444;
+}
+
+/* Action buttons */
+.notification .action-button {
+    background: #222222;
+    color: #b3b3b3;
+    border-radius: 0px;
+    padding: 6px 10px;
+    margin: 4px 2px;
+}
+
+.notification .action-button:hover {
+    background: #444444;
+}
+
+.notification .action-button:active {
+    background: #555555;
+}
+
+/* ========= WIDGETS ========= */
+
+/* Title */
+.title {
+    color: #b3b3b3;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px;
+    background-color: #000000;
+    border-bottom: 1px solid #333333;
+    border-radius: 0px;
+}
+
+.title .clear-all-button {
+    background: #222222;
+    color: #b3b3b3;
+    border-radius: 0px;
+    padding: 4px 10px;
+    margin-left: 10px;
+}
+
+.title .clear-all-button:hover {
+    background: #444444;
+}
+
+/* DND Toggle */
+.dnd {
+    color: #b3b3b3;
+    background-color: #000000;
+    padding: 8px;
+    border-bottom: 1px solid #333333;
+}
+
+.dnd .toggle {
+    background: #222222;
+    border-radius: 0px;
+    padding: 4px 8px;
+}
+
+.dnd .toggle:checked {
+    background: #555555;
+}
+
+/* Inhibitors */
+.inhibitors {
+    background-color: #000000;
+    padding: 8px;
+    border-bottom: 1px solid #333333;
+}
+
+.inhibitors .button {
+    background: #222222;
+    color: #b3b3b3;
+    border-radius: 0px;
+    padding: 4px 10px;
+}
+
+.inhibitors .button:hover {
+    background: #444444;
+}
+
+/* Buttons Grid (e.g. WiFi toggle) */
+.buttons-grid button {
+    background: #222222;
+    color: #b3b3b3;
+    border-radius: 0px;
+    padding: 8px;
+    margin: 4px;
+}
+
+.buttons-grid button:hover {
+    background: #444444;
+}
+
+.buttons-grid button:checked {
+    background: #555555;
+}
+
+/* Empty state */
+.notification-stack:empty + .empty-text,
+.notification-stack:empty ~ .empty-text {
+    color: #777777;
+    font-style: italic;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Scrollbar (optional) */
+scrollbar,
+scrollbar * {
+    background: #000000;
+    color: #b3b3b3;
+}
+
+scrollbar slider {
+    background: #333333;
+    min-width: 4px;
+    border-radius: 0px;
+}
+
+scrollbar slider:hover {
+    background: #555555;
+}
+

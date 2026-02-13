@@ -1,0 +1,13 @@
+profile laptop {
+  output eDP-1 enable mode 3840x2400@60.00Hz
+  exec $HOME/.config/mango/scripts/setup_displays.sh
+  exec $HOME/.config/kanshi/rebar.sh
+}
+
+profile any {
+  output eDP-1 enable mode 3840x2400@60.00Hz
+  output "*" enable
+  exec $HOME/.config/hypr/scripts/external_monitor.sh
+  exec $HOME/.config/mango/scripts/setup_displays.sh
+  exec $HOME/.config/kanshi/rebar.sh
+}

@@ -1,0 +1,6 @@
+# ~/.xprofile
+
+export XCURSOR_SIZE=16
+# Set environment variables for X sessions
+export LIBVIRT_DEFAULT_URI="qemu:///system"
+
